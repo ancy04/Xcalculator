@@ -3,23 +3,27 @@ import {useState} from "react";
 export default function NumberBoard() {
 
     const [result, setResult] = useState("");
+    const [expression, setExpression] = useState("");
     
     const numbersList=["7","8","9","+","4","5","6","-","1","2","3","*","C","0","=","/"]
 
 
-    const handleClick = (value) => {
+     const handleClick = (value) => {
     if (value === "C") {
+      setExpression("");
       setResult("");
     } else if (value === "=") {
       try {
-        setResult(eval(result).toString()); 
-      } catch (err) {
+        const evalResult = eval(expression); 
+        setResult(evalResult);
+      } catch {
         setResult("Error");
       }
     } else {
-      setResult(result + value);
+      setExpression(expression + value);
     }
   };
+
   return (
     <div style={{display:"flex",justifyContent:"center", alignItems:"center" }}>
         
@@ -34,8 +38,11 @@ export default function NumberBoard() {
         <h1>React Calculator</h1>
         <input type="text" 
         style={{width:"230px"}}
-        value={result}
+        value={expression}
+        readOnly
         />
+
+        <div style={{width:"100%", textAlign:"center"}}>{result}</div>
         
         {numbersList.map(n => (
         <button style={{border: "1px solid grey",
