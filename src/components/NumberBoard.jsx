@@ -14,9 +14,9 @@ export default function NumberBoard() {
       setResult("");
     } else if (value === "=") {
       try {
-        const evalResult = eval(expression); 
+        const evalResult = eval(expression).toString(); 
         setResult(evalResult);
-      } catch {
+      } catch(err) {
         setResult("Error");
       }
     } else {
